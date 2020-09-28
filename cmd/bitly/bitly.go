@@ -32,12 +32,12 @@ func main() {
 func run() error {
 	flag.Parse()
 	switch flag.Arg(0) {
-	case "shorten":
-		return shorten(flag.Arg(1))
 	case "config":
 		if flag.Arg(1) == "token" {
 			return setDefaultToken(flag.Arg(2))
 		}
+	default:
+		return shorten(flag.Arg(0))
 	}
 
 	return fmt.Errorf("commnd %q is not found", strings.Join(flag.Args(), " "))
@@ -87,6 +87,9 @@ func shorten(url string) error {
 }
 
 func setDefaultToken(token string) error {
+	if token == "" {
+		return errors.New("invalid token")
+	}
 	f, err := os.Open(configFilePath)
 	if err != nil && !errors.Is(err, os.ErrNotExist) {
 		return err

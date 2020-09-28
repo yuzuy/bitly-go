@@ -17,7 +17,7 @@ go get github.com/yuzuy/bitly-go/cmd/bitly
 ### Shortening urls
 
 ```
-bitly [flags] shorten [url]
+bitly [flags] [url]
 ```
 
 #### Flags
